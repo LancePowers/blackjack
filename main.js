@@ -26,9 +26,9 @@ function selectCard(){
 
 function Hand(name) {
   this.name = name;
-  this.cards = [0,0,0,0,0,0,0,0,0];
-  this.cards[0] = selectCard();
-  this.cards[1] = selectCard();
+  this.cards = [selectCard()[0],selectCard()[0]];
+  // this.cards.splice(0,0,selectCard());
+  // this.cards[1] = selectCard();
   console.log(this.cards);
 }
 
@@ -48,20 +48,21 @@ var player1hand = new Hand('zach')
 var player2hand = new Hand('lance')
 var dealerHand = new Hand('computer')
 
-console.log("player1 ",player1hand.card1,player1hand.card2,
-"player2 ",player2hand.card1,player2hand.card2,
-"dealer ",dealerHand.card1,dealerHand.card2);
+console.log("player1 ",player1hand.cards,
+"player2 ",player2hand.cards,
+"dealer ",dealerHand.cards);
 checkBlackjack(dealerHand);
 checkBlackjack(player1hand);
 checkBlackjack(player2hand);
 //Check to see if hand is a 10,1 or 1,10
 function checkBlackjack(hand){
-if ((hand.card1[0] + hand.card2[0] === 11) && (hand.card1[0] ===10 || hand.card2[0] === 10) ) {
+if ((hand.cards[0] + hand.cards[1] === 11) && (hand.cards[0] ===10 || hand.cards[1] === 10) ) {
   alert(hand.name + " BlackJack");
 } else {
   console.log("No Blackjack");
 }
 }
+
 
 
 
