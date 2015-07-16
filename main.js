@@ -1,5 +1,7 @@
-// var deckImage = ["🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂬","🂭","🂮","🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂼","🂽","🂾","🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃌","🃍","🃎","🃑","🃒","🃓","🃔","🃕","🃖","🃗","🃘","🃙","🃚","🃛","🃜","🃝""🃞"];
-// console.log(deckImage);
+var deckImage = ["🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂬","🂭","🂮","🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂼","🂽","🂾","🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃌","🃍","🃎","🃑","🃒","🃓","🃔","🃕","🃖","🃗","🃘","🃙","🃚","🃛","🃜","🃝","🃞"];
+//var deckImage = new Array[🂡,🂢,🂣,🂤,🂥,🂦,🂧,🂨,🂩,🂪,🂫,🂬,🂭,🂮,🂱,🂲,🂳,🂴,🂵,🂶,🂷,🂸,🂹,🂺,🂻,🂼,🂽,🂾,🃁,🃂,🃃,🃄,🃅,🃆,🃇,🃈,🃉,🃊,🃋,🃌,🃍,🃎,🃑,🃒,🃓,🃔,🃕,🃖,🃗,🃘,🃙,🃚,🃛,🃜,🃝,🃞];
+console.log(deckImage);
+
 //Create the initial deck *need to figure out how to display unicode
 var deckValue= [
   1,2,3,4,5,6,7,8,9,10,10,10,10,
@@ -29,7 +31,8 @@ function createDeck(){
   for (var i = 0; i < 52; i++) {
     var name = deckNames()[i+1];
     var value = deckValue[i];
-    deck[i] = new Card(name,value,"")
+    var image = deckImage[i];
+    deck[i] = new Card(name,value,image)
   }
 }
 
@@ -87,12 +90,20 @@ function cardValue(hand){
   }
   return handValue;
 }
+
+updateDom(player1hand.cards[0].image,"card");
+
+function updateDom(html, id){
+  var element = document.getElementById(id);
+  element.innerHTML = html;
+}
 //
-console.log(player1hand.cards[0].value);
-console.log(deck.length);
+//console.log(player1hand.cards[0].value);
+//console.log(deck.length);
 checkBlackjack(player1hand);
 checkBlackjack(player2hand);
 checkBlackjack(dealerHand);
+console.log(player1hand);
 console.log(cardValue(player1hand));
 var hit = prompt("hit?");
 while (hit === "Y"){
