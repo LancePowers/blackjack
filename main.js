@@ -12,10 +12,10 @@ var deckImage =  [
  ];
 //deckValue is an array of card values
 var deckValue= [
-  1,2,3,4,5,6,7,8,9,10,10,10,10,
-  1,2,3,4,5,6,7,8,9,10,10,10,10,
-  1,2,3,4,5,6,7,8,9,10,10,10,10,
-  1,2,3,4,5,6,7,8,9,10,10,10,10
+  11,2,3,4,5,6,7,8,9,10,10,10,10,
+  11,2,3,4,5,6,7,8,9,10,10,10,10,
+  11,2,3,4,5,6,7,8,9,10,10,10,10,
+  11,2,3,4,5,6,7,8,9,10,10,10,10
 ];
 //deckNames is a function to combine the faces and suits into a diplayable name //it probably isn't necessary.
 function deckNames(){
@@ -39,7 +39,8 @@ function createDeck(){
     var name = deckNames()[i+1];
     var value = deckValue[i];
     var image = deckImage[i];
-    deck[i] = new Card(name,value,image)
+    deck[i] = new Card(name,value,image);
+    //console.log(deck[i]);
   }
 }
 
@@ -50,8 +51,6 @@ function Card(name,value,image){
   this.value = value;
   this.image = image;
 }
-var deck = [];
-createDeck();
 
 //function to select one card at random and remove it from the deck.
 function selectCard(){
@@ -62,6 +61,7 @@ function selectCard(){
   //console.log(cardPos,card);
   deckCount = deckCount - 1;
   //console.log(deckCount);
+  //console.log(card);
   return card;
 }
 
@@ -69,7 +69,7 @@ function selectCard(){
 function Hand(name) {
   this.name = name;
   this.cards = [selectCard()[0],selectCard()[0]];
-  console.log(this.cards);
+  //console.log(this.cards);
 }
 
 //prompts user for name and creates 3 hands (2 player 1 dealer).
@@ -82,11 +82,24 @@ function newPlayer(){
 
 //checks a hand for blackJack
 function checkBlackjack(hand){
-  if ((hand.cards[0].value + hand.cards[1].value === 11) && (hand.cards[0].value ===10 || hand.cards[1].value === 10) ) {
+  if ((hand.cards[0].value + hand.cards[1].value) === 21){
     alert(hand.name + " BlackJack");
   } else {
-    console.log("No Blackjack");
+    //console.log("No Blackjack");
   }
+}
+
+function softCheck(hand){
+  var softHard = "hard";
+  var aceAt;
+  for (var i = 0; i < hand.cards.length; i++) {
+    if(hand.cards[i].value === 11){
+      softHard = "soft";
+      aceAt = i;
+    }
+  }
+  //reduce hand value by 10
+  return [softHard, aceAt];
 }
 
 //function to determine value of a hand/if it's busted///
@@ -95,36 +108,45 @@ function cardValue(hand){
   var handValue = 0;
   for (var i = 0; i < hand.cards.length; i++) {
     handValue += hand.cards[i].value;
-    if (handValue < 22) {
-      console.log(hand.cards.length);
-    } else {
-      alert("BUST");
+  }
+  //call a split function...
+  if(handValue > 21){
+    if(softCheck(hand)[0] === "soft"){
+      var aceAt = softCheck(hand)[1];
+      hand.cards[aceAt].value = 1;
+      cardValue(hand);
+    } else {handValue = "BUST";
     }
   }
   return handValue;
 }
 
+
+
 function updateHand(id){
   var cardPics = "";
   for (var i = 0; i < player1hand.cards.length; i++) {
      cardPics = cardPics + player1hand.cards[i].image;
-     console.log(cardPics);
+     //console.log(cardPics);
   }
   var element = document.getElementById(id);
   element.innerHTML = cardPics;
 }
 
+var deck = [];
+createDeck();
 var player1hand = newPlayer();
+//console.log(player1hand);
 var dealerHand = new Hand('Dealer');
 updateHand("card");
 checkBlackjack(player1hand);
 checkBlackjack(dealerHand);
-
-
-
-
-console.log(player1hand);
 console.log(cardValue(player1hand));
+
+
+
+
+//console.log(cardValue(player1hand));
 
 var hit = prompt("hit?");
 
