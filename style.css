@@ -1,17 +1,34 @@
-h1{
-  font-size: 20em;
-  font-weight: lighter;
-  float:left;
-  background-color: white;
+body {
+	margin: 0;
+	padding: 5px;
+	background: green;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 12px;
 }
-body{
-  background-color: green;
+h2{
+  position: relative;
+  clear: both;
+  font-size: 3em;
+  left: 45%;
+  font-weight: lighter; 
+}
+h1{
+  background: white;
+  float: left;
+  font-size: 15em;
+  font-weight: lighter;
+  margin: 5px;
+  border-radius: 5px;
+}
+.hand{
+  clear: both;
+}
+.card{
+
+}
+.dealer{
+color: red;
 }
 .person{
-  background-color: white;
 color: green;
-}
-.computer{
-  background-color: white;
-color: red;
 }
