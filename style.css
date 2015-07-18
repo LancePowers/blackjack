@@ -2,4 +2,16 @@ h1{
   font-size: 20em;
   font-weight: lighter;
   float:left;
+  background-color: white;
+}
+body{
+  background-color: green;
+}
+.person{
+  background-color: white;
+color: green;
+}
+.computer{
+  background-color: white;
+color: red;
 }

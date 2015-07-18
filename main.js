@@ -123,10 +123,10 @@ function cardValue(hand){
 
 
 
-function updateHand(id){
+function updateHand(player, id){
   var cardPics = "";
-  for (var i = 0; i < player1hand.cards.length; i++) {
-     cardPics = cardPics + player1hand.cards[i].image;
+  for (var i = 0; i < player.cards.length; i++) {
+     cardPics = cardPics + player.cards[i].image;
      //console.log(cardPics);
   }
   var element = document.getElementById(id);
@@ -138,7 +138,8 @@ createDeck();
 var player1hand = newPlayer();
 //console.log(player1hand);
 var dealerHand = new Hand('Dealer');
-updateHand("card");
+updateHand(player1hand,"player1");
+updateHand(dealerHand,"dealer");
 checkBlackjack(player1hand);
 checkBlackjack(dealerHand);
 console.log(cardValue(player1hand));
@@ -146,15 +147,28 @@ console.log(cardValue(player1hand));
 
 
 
-//console.log(cardValue(player1hand));
+
 
 var hit = prompt("hit?");
-
+console.log("test");
 while (hit === "Y"){
   player1hand.cards.push(selectCard()[0]);
-  updateHand("card");
-  console.log(cardValue(player1hand));
+  updateHand(player1hand,"player1");
+  if(cardValue(player1hand)==="BUST"){
+    alert("BUST");
+    break;
+  } else {
   hit = prompt("hit? ");
+ }
+}
+while (cardValue(dealerHand)<17){
+  dealerHand.cards.push(selectCard()[0]);
+  updateHand(dealerHand,"dealer");
+}
+if(cardValue(dealerHand)>cardValue(player1hand)){
+  alert("you lose");
+} else{
+  alert("you win");  
 }
 //
 // console.log("player1 ",player1hand.cards,
