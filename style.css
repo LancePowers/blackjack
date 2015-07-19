@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 	padding: 5px;
-	background: green;
+	background: #006600;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 12px;
 }
@@ -10,25 +10,55 @@ h2{
   clear: both;
   font-size: 3em;
   left: 45%;
-  font-weight: lighter; 
+  font-weight: bold;
+  color: white;
 }
 h1{
   background: white;
   float: left;
-  font-size: 15em;
+  font-size: 12em;
   font-weight: lighter;
   margin: 5px;
-  border-radius: 5px;
+
+}
+button{
+  width: 150px;
+  height: 75px;
+  font-size: 1em;
+  font-weight: lighter;
+  margin-left: 5%;
+  margin-top: 5%;
+  border-radius: 15px;
+  float: left;
+  background-color: #66A366;
+}
+p{
+  right: 5%;
+  margin: 10%;
+  font-size: 3em;
+  font-weight: bold;
+  color: white;
+  float:left;
+}
+#bet{
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  margin-left: 1%;
 }
 .hand{
   clear: both;
+  padding: 0px;
 }
 .card{
-
+  padding: 0px;
 }
 .dealer{
 color: red;
 }
 .person{
 color: green;
+}
+.clear{
+  clear: both;
 }

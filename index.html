@@ -8,16 +8,27 @@
   <body>
     <h2>Dealer</h2>
     <div class="hand">
-			<div class="card">
+			<div class="dealers-cards">
 				<h1 id = "dealer" > </h1>
 			</div>
 		</div>
-    <h2>Player</h2>
+    <h2 id="playerName">Player</h2>
     <div class="hand">
-			<div class="card">
+			<div class="card" id="players-cards">
 				<h1 id = "player" > </h1>
 			</div>
 		</div>
+    <div class="clear"></div>
+    <button type="button" name="button" id="hit">Hit</button>
+    <button type="button" name="button" id="double">Double Down</button>
+    <button type="button" name="button" id="stay">Stay</button>
+    <button type="button" name="button" id="split">Split</button>
+    <div class="clear"></div>
+    <p id="chips">$100</p>
+    <button type="button" name="button" id="bet">Increase Bet</button>
+    <button type="button" name="button" id="deal" >Deal</button>
+    <button type="button" name="button" id="wipe" >NEXT HAND</button>
+    <p id ="betAmount">$20</p>
    <script src="deck.js" charset="utf-8"></script>
    <script src="dom.js" charset="utf-8"></script>
    <script src="main.js" charset="utf-8"></script>

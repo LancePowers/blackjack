@@ -3,17 +3,12 @@
 //Need to add ability to choose # of players
 function newPlayer(){
   var p1name = prompt("What's your name?");
-  var player1hand = new Hand(p1name);
-  return player1hand;
+  document.getElementById("playerName").innerHTML = p1name;
 }
 
 //checks a hand for blackJack
 function checkBlackjack(hand){
-  if ((hand.cards[0].value + hand.cards[1].value) === 21){
-    alert(hand.name + " BlackJack");
-  } else {
-    //console.log("No Blackjack");
-  }
+  if ((hand.cards[0].value + hand.cards[1].value) === 21) { return true; }
 }
 
 function softCheck(hand){
@@ -32,11 +27,24 @@ function softCheck(hand){
 //function to determine value of a hand/if it's busted///
 //STILL NEED TO FIGURE OUT SOFT HANDS
 function cardValue(hand){
+  //get initial hand value
   var handValue = 0;
   for (var i = 0; i < hand.cards.length; i++) {
     handValue += hand.cards[i].value;
   }
-  //call a split function...
+  // hand values for dealer.
+  if(hand.name === "Dealer"){
+    if(softCheck(hand)[0] === "soft" && handValue < 17){
+      var aceAt = softCheck(hand)[1];
+      hand.cards[aceAt].value = 1;
+      cardValue(hand);
+    } else if (handValue > 21) {
+      return 'Bust';
+    } else {
+      return handValue;
+    }
+  }
+  //hand values for players
   if(handValue > 21){
     if(softCheck(hand)[0] === "soft"){
       var aceAt = softCheck(hand)[1];
@@ -52,79 +60,80 @@ function cardValue(hand){
 // calls on the createElement function in dom.js to display cards.
 function updateHand(player, newClass, count, cardslot){
   var image = player.cards[count].image;
-  console.log(image);
   addElement(newClass,image,cardslot);
   count++;
   return count;
 }
 
 
-
-var deck = [];
-createDeck();
-var player1hand = newPlayer();
-var playerCount = 0;
-playerCount = updateHand(player1hand,"person",playerCount,"player");
-console.log(playerCount);
-playerCount = updateHand(player1hand,"person",playerCount,"player");
-//console.log(player1hand);
-var dealerHand = new Hand('Dealer');
-var dealerCount = 0;
-dealerCount = updateHand(dealerHand,"dealer",dealerCount,"dealer");
-
-// updateHand(dealerHand,"dealer");
-checkBlackjack(player1hand);
-checkBlackjack(dealerHand);
-console.log(cardValue(player1hand));
+  var stack = 100;
+  var deck = [];
+  var player = newPlayer();
+  var playerHand;
+  var playerCount=0;
+  var dealerCount=0;
+  createDeck();
+  //newRound();
+function newRound(){
+  var bet = prompt("How much would you like to bet?");
+  playerCount = 0;
+  dealerCount = 0;
+  playerHand = new Hand('lance');
+  console.log(playerHand);
+  dealerHand = new Hand('Dealer');
 
 
+  playerCount = updateHand(playerHand,"person",playerCount,"player");
+  playerCount = updateHand(playerHand,"person",playerCount,"player");
 
-
-
-
-var hit = prompt("hit?");
-console.log("test");
-while (hit === "Y"){
-  player1hand.cards.push(selectCard()[0]);
-  playerCount = updateHand(player1hand,"person",playerCount,"player");
-  if(cardValue(player1hand)==="BUST"){
-    alert("BUST");
-    break;
-  } else {
-  hit = prompt("hit? ");
- }
-}
-dealerCount = updateHand(dealerHand,"dealer",dealerCount,"dealer");
-while (cardValue(dealerHand)<17){
-  dealerHand.cards.push(selectCard()[0]);
   dealerCount = updateHand(dealerHand,"dealer",dealerCount,"dealer");
+
+  if(checkBlackjack(playerHand) === true){
+    alert("Blackjack!")
+  };
+  if(checkBlackjack(dealerHand) === true){
+    alert("Dealer Blackjack!")
+  };
 }
-if(cardValue(dealerHand)>cardValue(player1hand)){
-  alert("you lose");
-} else{
-  alert("you win");
+
+
+
+
+function hit(hand){
+    playerHand.cards.push(selectCard()[0]);
+    playerCount = updateHand(playerHand,"person",playerCount,"player");
+    if(cardValue(playerHand)==="BUST"){
+      alert("BUST");
+    }
 }
-//
-// console.log("player1 ",player1hand.cards,
-// "player2 ",player2hand.cards,
-// "dealer ",dealerHand.cards);
-// checkBlackjack(dealerHand);
-// checkBlackjack(player1hand);
-// checkBlackjack(player2hand);
-// //Check to see if hand is a 10,1 or 1,10
-// function checkBlackjack(hand){
-// if ((hand.cards[0] + hand.cards[1] === 11) && (hand.cards[0] ===10 || hand.cards[1] === 10) ) {
-//   alert(hand.name + " BlackJack");
-// } else {
-//   console.log("No Blackjack");
-// }
-// }
-//
-//
-//
-//
-//
-// //for loop on array to test value of hand.
-////////////////////////////Trash//////////////
-// var deckImage = ["🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂬","🂭","🂮","🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂼","🂽","🂾","🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃌","🃍","🃎","🃑","🃒","🃓","🃔","🃕","🃖","🃗","🃘","🃙","🃚","🃛","🃜","🃝","🃞"];
-//var deckImage = new Array[🂡,🂢,🂣,🂤,🂥,🂦,🂧,🂨,🂩,🂪,🂫,🂬,🂭,🂮,🂱,🂲,🂳,🂴,🂵,🂶,🂷,🂸,🂹,🂺,🂻,🂼,🂽,🂾,🃁,🃂,🃃,🃄,🃅,🃆,🃇,🃈,🃉,🃊,🃋,🃌,🃍,🃎,🃑,🃒,🃓,🃔,🃕,🃖,🃗,🃘,🃙,🃚,🃛,🃜,🃝,🃞];
+// dealerTurn();
+function dealerTurn(){
+  dealerCount = updateHand(dealerHand,"dealer",dealerCount,"dealer");
+  while (cardValue(dealerHand)<17){
+    dealerHand.cards.push(selectCard()[0]);
+    dealerCount = updateHand(dealerHand,"dealer",dealerCount,"dealer");
+  }
+}
+
+function winLose(){
+  if(cardValue(dealerHand)>cardValue(playerHand)){
+    alert("you lose");
+  } else if (cardValue(dealerHand)===cardValue(playerHand)){
+    alert("push");
+  } else {
+    alert("you win!")
+  }
+}
+
+
+
+
+
+
+//push
+//dealer soft hand under 17
+//split
+//betting
+//number of decks
+//end after win/lose
+//buttons
