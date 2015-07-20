@@ -59,7 +59,6 @@ function cardValue(hand){
 
 // calls on the createElement function in dom.js to display cards.
 function updateHand(player, count, cardslot){
-  debugger;
   var image = player.cards[count].image;
   addElement(image,cardslot);
   count++;

@@ -29,9 +29,14 @@ function resetTable(count, id){
     currentDiv.removeChild(child);
 }
 function wipe(){
-
-  resetTable(dealerCount,"dealer");
-  resetTable(playerCount,"player");
+  var dealerClear = document.getElementById("dealers-cards");
+  var playerClear = document.getElementById("players-cards");
+  while(dealerClear.firstChild){
+    dealerClear.removeChild(dealerClear.firstChild);
+  }
+  while(playerClear.firstChild){
+    playerClear.removeChild(playerClear.firstChild);
+  }
         debugger;
 
 }
