@@ -1,15 +1,18 @@
 
-document.getElementById("hit").addEventListener("click", function(){hit(playerHand)});
-document.getElementById("stay").addEventListener("click", function(){dealerTurn()});
-document.getElementById("deal").addEventListener("click", function(){newRound()});
-document.getElementById("wipe").addEventListener("click", function(){wipe()});
+document.getElementById("hit").addEventListener("click", function(){hit(playerHand);});
+document.getElementById("stay").addEventListener("click", function(){dealerTurn();});
+document.getElementById("deal").addEventListener("click", function(){newRound();});
+document.getElementById("wipe").addEventListener("click", function(){
+
+  wipe();
+});
 // document.getElementById("bet").addEventListener("click", function(){bet(});
 // document.getElementById("double").addEventListener("click", function(){hit(playerHand)});
-function addElement (newClass,image,cardSlot) {
+function addElement (image,cardSlot) {
   // create a new div element
   // and give it some content
   var newDiv = document.createElement("h1");
-  newDiv.setAttribute("class",newClass);
+  newDiv.setAttribute("class",cardSlot);
   //console.log(newDiv);
   var newContent = image;
   //console.log(newContent);
@@ -18,16 +21,17 @@ function addElement (newClass,image,cardSlot) {
   // add the newly created element and its content into the DOM
   var currentDiv = document.getElementById(cardSlot);
   //console.log(currentDiv);
-  currentDiv.parentNode.insertBefore(newDiv, currentDiv);
+  currentDiv.appendChild(newDiv);
 }
 function resetTable(count, id){
   var currentDiv = document.getElementById(id);
-  for (var i = 0; i < count; i++) {
-    var child = currentDiv.lastChild;
-    currentDiv.parentNode.removeChild(child);
-  }
+  var child = currentDiv.firstChild;
+    currentDiv.removeChild(child);
 }
 function wipe(){
+
   resetTable(dealerCount,"dealer");
   resetTable(playerCount,"player");
+        debugger;
+
 }

@@ -6,58 +6,60 @@ body {
 	font-size: 12px;
 }
 h2{
-  position: relative;
-  clear: both;
-  font-size: 3em;
-  left: 45%;
-  font-weight: bold;
-  color: white;
+
 }
 h1{
   background: white;
   float: left;
-  font-size: 12em;
+  font-size: 3em;
   font-weight: lighter;
   margin: 5px;
 
 }
 button{
-  width: 150px;
-  height: 75px;
+  width: 100px;
+  height: 50px;
   font-size: 1em;
-  font-weight: lighter;
-  margin-left: 5%;
-  margin-top: 5%;
-  border-radius: 15px;
-  float: left;
   background-color: #66A366;
+  margin: 1em;
+  margin-bottom: 25%;
+  float: left;
+  border-radius: 25%;
+}
+.action-btn-container{
+  position: fixed;
+  bottom: 0;
+  left: 5%;
+}
+.game-btn-container{
+  position: fixed;
+  bottom: 0;
+  right: 5%;
 }
 p{
-  right: 5%;
-  margin: 10%;
-  font-size: 3em;
-  font-weight: bold;
   color: white;
   float:left;
 }
-#bet{
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-  margin-left: 1%;
+.stats{
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 .hand{
+  float: left;
   clear: both;
-  padding: 0px;
+  margin: 0 auto;
 }
-.card{
-  padding: 0px;
-}
-.dealer{
+
+.dealers-cards{
 color: red;
+font-size: 7em;
+font-weight: lighter;
 }
-.person{
+.players-cards{
 color: green;
+font-size: 7em;
+font-weight: lighter;
 }
 .clear{
   clear: both;

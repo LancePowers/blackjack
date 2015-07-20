@@ -58,9 +58,10 @@ function cardValue(hand){
 
 
 // calls on the createElement function in dom.js to display cards.
-function updateHand(player, newClass, count, cardslot){
+function updateHand(player, count, cardslot){
+  debugger;
   var image = player.cards[count].image;
-  addElement(newClass,image,cardslot);
+  addElement(image,cardslot);
   count++;
   return count;
 }
@@ -73,7 +74,7 @@ function updateHand(player, newClass, count, cardslot){
   var playerCount=0;
   var dealerCount=0;
   createDeck();
-  //newRound();
+  // newRound();
 function newRound(){
   var bet = prompt("How much would you like to bet?");
   playerCount = 0;
@@ -83,17 +84,17 @@ function newRound(){
   dealerHand = new Hand('Dealer');
 
 
-  playerCount = updateHand(playerHand,"person",playerCount,"player");
-  playerCount = updateHand(playerHand,"person",playerCount,"player");
+  playerCount = updateHand(playerHand,playerCount,"players-cards");
+  playerCount = updateHand(playerHand,playerCount,"players-cards");
 
-  dealerCount = updateHand(dealerHand,"dealer",dealerCount,"dealer");
+  dealerCount = updateHand(dealerHand,dealerCount,"dealers-cards");
 
   if(checkBlackjack(playerHand) === true){
-    alert("Blackjack!")
-  };
+    alert("Blackjack!");
+  }
   if(checkBlackjack(dealerHand) === true){
-    alert("Dealer Blackjack!")
-  };
+    alert("Dealer Blackjack!");
+  }
 }
 
 
@@ -101,18 +102,19 @@ function newRound(){
 
 function hit(hand){
     playerHand.cards.push(selectCard()[0]);
-    playerCount = updateHand(playerHand,"person",playerCount,"player");
+    playerCount = updateHand(playerHand, playerCount,"players-cards");
     if(cardValue(playerHand)==="BUST"){
       alert("BUST");
     }
 }
 // dealerTurn();
 function dealerTurn(){
-  dealerCount = updateHand(dealerHand,"dealer",dealerCount,"dealer");
+  dealerCount = updateHand(dealerHand, dealerCount,"dealers-cards");
   while (cardValue(dealerHand)<17){
     dealerHand.cards.push(selectCard()[0]);
-    dealerCount = updateHand(dealerHand,"dealer",dealerCount,"dealer");
+    dealerCount = updateHand(dealerHand, dealerCount,"dealers-cards");
   }
+  winLose();
 }
 
 function winLose(){
@@ -121,7 +123,7 @@ function winLose(){
   } else if (cardValue(dealerHand)===cardValue(playerHand)){
     alert("push");
   } else {
-    alert("you win!")
+    alert("you win!");
   }
 }
 
