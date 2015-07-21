@@ -1,3 +1,12 @@
+  var stack = 100;
+  var bet = 0;
+  var deck = [];
+  var player = newPlayer();
+  var playerHand;
+  var playerCount=0;
+  var dealerCount=0;
+  createDeck();
+
 
 //prompts user for name and creates 3 hands (2 player 1 dealer).
 //Need to add ability to choose # of players
@@ -24,8 +33,7 @@ function softCheck(hand){
   return [softHard, aceAt];
 }
 
-//function to determine value of a hand/if it's busted///
-//STILL NEED TO FIGURE OUT SOFT HANDS
+
 function cardValue(hand){
   //get initial hand value
   var handValue = 0;
@@ -39,10 +47,11 @@ function cardValue(hand){
       hand.cards[aceAt].value = 1;
       cardValue(hand);
     } else if (handValue > 21) {
-      stack -= (bet);
-      wipe();
-      updateChips();
-      bet = 0;
+      return "BUST";
+      // stack -= (bet);
+      // wipe();
+      // updateChips();
+      // bet = 0;
     } else {
       return handValue;
     }
@@ -69,22 +78,18 @@ function updateHand(player, count, cardslot){
 }
 
 
-  var stack = 100;
-  var bet = 0;
-  var deck = [];
-  var player = newPlayer();
-  var playerHand;
-  var playerCount=0;
-  var dealerCount=0;
-  createDeck();
+
   // newRound();
 function newRound(){
+  if(deck.length < 10){
+    createDeck();
+    alert("Shuffling");
+  }
   bet = parseInt(prompt("How much would you like to bet?"));
   updateChips();
   playerCount = 0;
   dealerCount = 0;
   playerHand = new Hand('lance');
-  console.log(playerHand);
   dealerHand = new Hand('Dealer');
 
 
@@ -102,7 +107,7 @@ function newRound(){
   }
   if(checkBlackjack(dealerHand) === true){
     alert("Dealer Blackjack!");
-    stack -= (bet*1.5);
+    stack -= bet;
     wipe();
     updateChips();
     bet = 0;
@@ -139,7 +144,10 @@ function dealerTurn(){
 }
 
 function winLose(){
-  if(cardValue(dealerHand)>cardValue(playerHand)){
+  if(cardValue(dealerHand)==="Bust"){
+    alert("Dealer Busts");
+    stack += bet;
+  }  else if(cardValue(dealerHand)>cardValue(playerHand)){
     alert("you lose");
     stack -= bet;
   } else if (cardValue(dealerHand)===cardValue(playerHand)){
