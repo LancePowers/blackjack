@@ -2,12 +2,7 @@
 document.getElementById("hit").addEventListener("click", function(){hit(playerHand);});
 document.getElementById("stay").addEventListener("click", function(){dealerTurn();});
 document.getElementById("deal").addEventListener("click", function(){newRound();});
-document.getElementById("wipe").addEventListener("click", function(){
-
-  wipe();
-});
-// document.getElementById("bet").addEventListener("click", function(){bet(});
-// document.getElementById("double").addEventListener("click", function(){hit(playerHand)});
+document.getElementById("double").addEventListener("click", function(){doubleDown(playerHand)});
 function addElement (image,cardSlot) {
   // create a new div element
   // and give it some content
@@ -23,11 +18,8 @@ function addElement (image,cardSlot) {
   //console.log(currentDiv);
   currentDiv.appendChild(newDiv);
 }
-function resetTable(count, id){
-  var currentDiv = document.getElementById(id);
-  var child = currentDiv.firstChild;
-    currentDiv.removeChild(child);
-}
+
+
 function wipe(){
   var dealerClear = document.getElementById("dealers-cards");
   var playerClear = document.getElementById("players-cards");
@@ -37,6 +29,13 @@ function wipe(){
   while(playerClear.firstChild){
     playerClear.removeChild(playerClear.firstChild);
   }
-        debugger;
+}
 
+function updateChips(){
+  document.getElementById("chips").innerHTML = stack;
+  document.getElementById("betAmount").innerHTML = bet;
+}
+function deactivate(id){
+  var targetBtn = document.getElementById(id);
+  targetBtn.setAttribute("class",deactivated);
 }

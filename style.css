@@ -38,7 +38,12 @@ button{
 }
 p{
   color: white;
+  font-size: 4em;
   float:left;
+}
+.deal{
+  width: 200px;
+  height: 200px;
 }
 .stats{
   position: fixed;
@@ -47,20 +52,27 @@ p{
 }
 .hand{
   float: left;
-  clear: both;
+  border: 1px;
+  padding: 5px;
   margin: 0 auto;
 }
 
 .dealers-cards{
 color: red;
-font-size: 7em;
+font-size: 10em;
 font-weight: lighter;
 }
 .players-cards{
 color: green;
-font-size: 7em;
+font-size: 10em;
 font-weight: lighter;
 }
 .clear{
   clear: both;
+}
+.deactivated{
+  background-color: gray;
+}
+.card-table{
+  margin: 10%;
 }

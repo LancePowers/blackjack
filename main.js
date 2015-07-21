@@ -39,7 +39,10 @@ function cardValue(hand){
       hand.cards[aceAt].value = 1;
       cardValue(hand);
     } else if (handValue > 21) {
-      return 'Bust';
+      stack -= (bet);
+      wipe();
+      updateChips();
+      bet = 0;
     } else {
       return handValue;
     }
@@ -67,6 +70,7 @@ function updateHand(player, count, cardslot){
 
 
   var stack = 100;
+  var bet = 0;
   var deck = [];
   var player = newPlayer();
   var playerHand;
@@ -75,7 +79,8 @@ function updateHand(player, count, cardslot){
   createDeck();
   // newRound();
 function newRound(){
-  var bet = prompt("How much would you like to bet?");
+  bet = parseInt(prompt("How much would you like to bet?"));
+  updateChips();
   playerCount = 0;
   dealerCount = 0;
   playerHand = new Hand('lance');
@@ -89,21 +94,38 @@ function newRound(){
   dealerCount = updateHand(dealerHand,dealerCount,"dealers-cards");
 
   if(checkBlackjack(playerHand) === true){
-    alert("Blackjack!");
+    alert("You got Blackjack!");
+    stack += (bet*1.5);
+    wipe();
+    updateChips();
+    bet = 0;
   }
   if(checkBlackjack(dealerHand) === true){
     alert("Dealer Blackjack!");
+    stack -= (bet*1.5);
+    wipe();
+    updateChips();
+    bet = 0;
   }
 }
 
 
-
+function doubleDown(hand){
+  bet *= 2;
+  playerHand.cards.push(selectCard()[0]);
+  playerCount = updateHand(playerHand, playerCount,"players-cards");
+  dealerTurn();
+}
 
 function hit(hand){
     playerHand.cards.push(selectCard()[0]);
     playerCount = updateHand(playerHand, playerCount,"players-cards");
     if(cardValue(playerHand)==="BUST"){
       alert("BUST");
+      stack -= (bet);
+      wipe();
+      updateChips();
+      bet=0;
     }
 }
 // dealerTurn();
@@ -119,11 +141,16 @@ function dealerTurn(){
 function winLose(){
   if(cardValue(dealerHand)>cardValue(playerHand)){
     alert("you lose");
+    stack -= bet;
   } else if (cardValue(dealerHand)===cardValue(playerHand)){
     alert("push");
   } else {
     alert("you win!");
+    stack += bet;
   }
+  wipe();
+  updateChips();
+  bet = 0;
 }
 
 
