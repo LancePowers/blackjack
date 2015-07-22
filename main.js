@@ -8,24 +8,26 @@
   createDeck();
 
 
-//prompts user for name and creates 3 hands (2 player 1 dealer).
-//Need to add ability to choose # of players
+//in: - process: prompt player name and change text. out: -
 function newPlayer(){
-  var p1name = prompt("What's your name?");
-  document.getElementById("playerName").innerHTML = p1name;
+  var p1name = prompt('What\'s your name?');
+  document.getElementById('playerName').innerHTML = p1name;
 }
 
-//checks a hand for blackJack
+//in: hand. process: see if the value of a hand = 21. out: true or false
 function checkBlackjack(hand){
-  if ((hand.cards[0].value + hand.cards[1].value) === 21) { return true; }
+  if ((hand.cards[0].value + hand.cards[1].value) === 21) {
+    return true;
+  }
 }
 
+//in: hand. process: checks to see if a hand has an ace. out: 'soft or hard' and position of ace.
 function softCheck(hand){
-  var softHard = "hard";
+  var softHard = 'hard';
   var aceAt;
   for (var i = 0; i < hand.cards.length; i++) {
     if(hand.cards[i].value === 11){
-      softHard = "soft";
+      softHard = 'soft';
       aceAt = i;
     }
   }
@@ -33,7 +35,7 @@ function softCheck(hand){
   return [softHard, aceAt];
 }
 
-
+//in: hand. process: determine the card value of a player or dealer. out: hand value.
 function cardValue(hand){
   //get initial hand value
   var handValue = 0;
@@ -41,35 +43,34 @@ function cardValue(hand){
     handValue += hand.cards[i].value;
   }
   // hand values for dealer.
-  if(hand.name === "Dealer"){
-    if(softCheck(hand)[0] === "soft" && handValue < 17){
-      var aceAt = softCheck(hand)[1];
-      hand.cards[aceAt].value = 1;
+  if(hand.name === 'Dealer'){
+   if(softCheck(hand)[0] === 'soft' && handValue < 17){
+      hand = aceConvert(hand);
       cardValue(hand);
     } else if (handValue > 21) {
-      return "BUST";
-      // stack -= (bet);
-      // wipe();
-      // updateChips();
-      // bet = 0;
+      return 'BUST';
     } else {
       return handValue;
     }
   }
   //hand values for players
   if(handValue > 21){
-    if(softCheck(hand)[0] === "soft"){
-      var aceAt = softCheck(hand)[1];
-      hand.cards[aceAt].value = 1;
+    if(softCheck(hand)[0] === 'soft'){
+      hand = aceConvert(hand);
       cardValue(hand);
-    } else {handValue = "BUST";
+    } else {handValue = 'BUST';
     }
   }
   return handValue;
 }
 
+//in: hand. process: change ace value from 11 to 1. out: nothing(updates global.)
+function aceConvert (hand) {
+  var aceAt = softCheck(hand)[1];
+      hand.cards[aceAt].value = 1;
+}
 
-// calls on the createElement function in dom.js to display cards.
+//in: hand, number of cards in hand, and dom id. process: add a card image to html and update # of cards. out: new # of cards.
 function updateHand(player, count, cardslot){
   var image = player.cards[count].image;
   addElement(image,cardslot);
@@ -79,12 +80,13 @@ function updateHand(player, count, cardslot){
 
 
 
-  // newRound();
+//in: nothing. process: creates a new deck when the old one has less than 10 cards. prompts for bet, creates hands, and checks for blackjack out: nothing.
 function newRound(){
   if(deck.length < 10){
     createDeck();
     alert("Shuffling");
   }
+
   bet = parseInt(prompt("How much would you like to bet?"));
   updateChips();
   playerCount = 0;
@@ -100,21 +102,28 @@ function newRound(){
 
   if(checkBlackjack(playerHand) === true){
     alert("You got Blackjack!");
-    stack += (bet*1.5);
-    wipe();
-    updateChips();
-    bet = 0;
+    clearTable(true,1.5);
   }
   if(checkBlackjack(dealerHand) === true){
     alert("Dealer Blackjack!");
-    stack -= bet;
-    wipe();
-    updateChips();
-    bet = 0;
+   clearTable(false,1);
   }
 }
 
+//in: win or lose boolean, multiplier for bet amount(*1.5 for BJ 0 for push). process: update bet add or subtract from stack. out: nothing.
+function clearTable(win,multiplier){
+  bet *= multiplier;
+  if(win === true){
+    stack += bet;
+  } else {
+    stack -= bet;
+  }
+  wipe();
+  updateChips();
+  bet = 0;
+}
 
+//in: hand. process: double bet, hits hand, and starts dealer. out: nothing.
 function doubleDown(hand){
   bet *= 2;
   playerHand.cards.push(selectCard()[0]);
@@ -122,18 +131,17 @@ function doubleDown(hand){
   dealerTurn();
 }
 
+//in: hand. process: adds card to hand, updates dom, and checks for bust. out: nothing.
 function hit(hand){
     playerHand.cards.push(selectCard()[0]);
     playerCount = updateHand(playerHand, playerCount,"players-cards");
     if(cardValue(playerHand)==="BUST"){
       alert("BUST");
-      stack -= (bet);
-      wipe();
-      updateChips();
-      bet=0;
+      clearTable(false,1);
     }
 }
-// dealerTurn();
+
+//in: nothing. process: hits dealer hand untill soft 17 or bust. out: nothing.
 function dealerTurn(){
   dealerCount = updateHand(dealerHand, dealerCount,"dealers-cards");
   while (cardValue(dealerHand)<17){
@@ -143,22 +151,22 @@ function dealerTurn(){
   winLose();
 }
 
+//in: nothing. process: compares hands to determine win or lose. out: nothing.
 function winLose(){
   if(cardValue(dealerHand)==="Bust"){
     alert("Dealer Busts");
-    stack += bet;
+    clearTable(true,1);
   }  else if(cardValue(dealerHand)>cardValue(playerHand)){
     alert("you lose");
-    stack -= bet;
+    clearTable(false,1);
   } else if (cardValue(dealerHand)===cardValue(playerHand)){
     alert("push");
+    clearTable(true,0);
   } else {
     alert("you win!");
-    stack += bet;
+    clearTable(true,1)
   }
-  wipe();
-  updateChips();
-  bet = 0;
+
 }
 
 
@@ -166,10 +174,6 @@ function winLose(){
 
 
 
-//push
-//dealer soft hand under 17
 //split
-//betting
-//number of decks
-//end after win/lose
-//buttons
+
+
