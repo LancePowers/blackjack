@@ -2,8 +2,19 @@
 document.getElementById("hit").addEventListener("click", function(){hit(playerHand);});
 document.getElementById("stay").addEventListener("click", function(){dealerTurn();});
 document.getElementById("deal").addEventListener("click", function(){newRound();});
-document.getElementById("double").addEventListener("click", function(){doubleDown(playerHand)});
-function addElement (image,cardSlot) {
+document.getElementById("double").addEventListener("click", function(){doubleDown(playerHand);});
+
+function displayResults(text){
+ var resultBox = document.getElementById('results');
+ resultBox.setAttribute ("class", 'result-box');
+ resultBox.setAttribute('id','result');
+ resultBox.innerHTML = text;
+ document.body.appendChild(resultBox);
+}
+
+
+
+function addElement (image,cardSlot){
   // create a new div element
   // and give it some content
   var newDiv = document.createElement("h1");

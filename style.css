@@ -1,78 +1,120 @@
 body {
-	margin: 0;
-	padding: 5px;
-	background: #006600;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 12px;
 }
-h2{
-
-}
-h1{
-  background: white;
-  float: left;
-  font-size: 3em;
-  font-weight: lighter;
-  margin: 5px;
-
-}
 button{
-  width: 100px;
-  height: 50px;
-  font-size: 1em;
-  background-color: #66A366;
-  margin: 1em;
-  margin-bottom: 25%;
-  float: left;
+  font-size: 2em;
+  height: 4em;
+  box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.75);
   border-radius: 25%;
 }
-.action-btn-container{
-  position: fixed;
-  bottom: 0;
-  left: 5%;
-}
-.game-btn-container{
-  position: fixed;
-  bottom: 0;
-  right: 5%;
-}
-p{
-  color: white;
-  font-size: 4em;
-  float:left;
-}
-.deal{
-  width: 200px;
-  height: 200px;
-}
-.stats{
-  position: fixed;
-  top: 0;
-  right: 0;
-}
-.hand{
+h1{
+  font-size: 7em;
   float: left;
-  border: 1px;
-  padding: 5px;
-  margin: 0 auto;
+  margin: 2px;
+  background: white;
+  font-weight: lighter;
 }
+h2{
+  margin-bottom: 0;
+}
+.result-box{
+  position: absolute;
+  top: 25;
+  left: 25;
+  font-size: 10em;
+}
+.table{
+  margin: 25px;
+  display:block;
+  background: #006600;
+  min-height: 500px;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+  border: 15px solid black;
+}
+.center{
+    margin:auto;
+}
+.area{
+  background: rgba(256,256,256,0.1);
+  min-height: 100px;
+}
+.dealer{
+  width: 40%;
 
-.dealers-cards{
-color: red;
-font-size: 10em;
-font-weight: lighter;
 }
-.players-cards{
-color: green;
-font-size: 10em;
-font-weight: lighter;
+.player{
+  margin-top: 50px;
+  width: 60%;
+}
+.controls{
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+}
+.action-button{
+  width: 100px;
+  margin: 10px;
+}
+.deal-btn{
+  width: 200px;
+  position: absolute;
+  left: 200px;
+  bottom: 50px;
+}
+.betting{
+  width: 60%;
+
+}
+.float{
+  float:left;
+  margin: 10px;
+  width: 40%;
+}
+.large{
+  font-size: 3em;
+  margin-top: 5%;
+  margin-left: 20%
+}
+.arrow {
+  margin-top: 5%;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.3);
+}
+.up{
+  margin-left: 20%;
+   border-bottom: 20px solid black;
+}
+.down{
+   border-top: 20px solid black;
+}
+.num-display{
+ font-size: 2em;
+ color: rgba(256,256,256,0.3);
+ float: left;
+}
+.no-shadow{
+  box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.75);
+}
+.text-margin{
+  margin: 10px 5px 0 0;
 }
 .clear{
   clear: both;
 }
-.deactivated{
-  background-color: gray;
+.result{
+  font-size: 6em;
+  position: absolute;
+  top:10px;
+  left:10px;
 }
-.card-table{
-  margin: 10%;
+.players-cards{
+  color:green;
+}
+.dealers-cards{
+  color:red;
 }

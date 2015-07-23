@@ -1,4 +1,4 @@
-//Global variable for players hands
+
 //deckImage is an array of images to use for cards.
 var deckImage =  [
    '&#x1F0A1','&#x1F0A2','&#x1F0A3','&#x1F0A4','&#x1F0A5','&#x1F0A6','&#x1F0A7',
@@ -17,7 +17,7 @@ var deckValue= [
   11,2,3,4,5,6,7,8,9,10,10,10,10,
   11,2,3,4,5,6,7,8,9,10,10,10,10
 ];
-//deckNames is a function to combine the faces and suits into a diplayable name //it probably isn't necessary.
+//i: nothing p: combines  o:
 function deckNames(){
   var suit = [" of Clubs"," of Diamonds"," of Hearts"," of Spades"];
   var face = ["Ace","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King"];
