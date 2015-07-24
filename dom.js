@@ -1,8 +1,8 @@
 
-document.getElementById("hit").addEventListener("click", function(){hit(playerHand);});
+document.getElementById("hit").addEventListener("click", function(){hit(player.hand);});
 document.getElementById("stay").addEventListener("click", function(){dealerTurn();});
 document.getElementById("deal").addEventListener("click", function(){newRound();});
-document.getElementById("double").addEventListener("click", function(){doubleDown(playerHand);});
+document.getElementById("double").addEventListener("click", function(){doubleDown(player.hand);});
 
 function displayResults(text){
  var resultBox = document.getElementById('results');
@@ -43,8 +43,8 @@ function wipe(){
 }
 
 function updateChips(){
-  document.getElementById("chips").innerHTML = stack;
-  document.getElementById("betAmount").innerHTML = bet;
+  document.getElementById("chips").innerHTML = player.stack;
+  document.getElementById("betAmount").innerHTML = player.hand.bet;
 }
 function deactivate(id){
   var targetBtn = document.getElementById(id);

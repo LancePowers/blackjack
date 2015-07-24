@@ -27,7 +27,7 @@ function deckNames(){
   for (var i = 0; i < suit.length; i++) {
      for (var j = 0; j < face.length; j++) {
        deckNames[size] = face[j] + suit[i];
-       size -= 1
+       size -= 1;
      }
   }
   return deckNames;
@@ -35,13 +35,14 @@ function deckNames(){
 
 //runs 3 arrays to combine name, value, and image into an array of objects.
 function createDeck(){
+  var output = [];
   for (var i = 0; i < 52; i++) {
     var name = deckNames()[i+1];
     var value = deckValue[i];
     var image = deckImage[i];
-    deck[i] = new Card(name,value,image);
-    //console.log(deck[i]);
+    output[i] = new Card(name,value,image);
   }
+  return output;
 }
 
 //Card builds a card with name, value, and image. Can add a parameter and additional string to the createdDeck.
@@ -54,10 +55,10 @@ function Card(name,value,image){
 
 //function to select one card at random and remove it from the deck.
 function selectCard(){
-  var deckCount = deck.length;
+  var deckCount = dealer.deck.length;
   var index = Math.random();
   var cardPos = index * deckCount;
-  var card = deck.splice(cardPos, 1);
+  var card = dealer.deck.splice(cardPos, 1);
   //console.log(cardPos,card);
   deckCount = deckCount - 1;
   //console.log(deckCount);
@@ -66,8 +67,7 @@ function selectCard(){
 }
 
 //constructor for hand creates a 2 card hand and assigns it to a player
-function Hand(name) {
-  this.name = name;
-  this.cards = [selectCard()[0],selectCard()[0]];
-  //console.log(this.cards);
+function Hand() {
+    this.bet = 0;
+    this.cards = [selectCard()[0],selectCard()[0]];
 }
