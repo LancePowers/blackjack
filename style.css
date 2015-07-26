@@ -113,7 +113,11 @@ h2{
   left:10px;
 }
 .players-cards{
-  color:green;
+  color: green;
+  float: left;
+  position: relative;
+  right: -20px;
+  line-height: .9;
 }
 .dealers-cards{
   color:red;

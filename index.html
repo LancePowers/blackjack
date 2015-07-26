@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <title>BlackJack</title>
     <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="alert.css">
   </head>
   <body>
     <div id='results'></div>
@@ -31,9 +30,9 @@
         </div>
         <div class='float area'>
           <div class='num-display text-margin'> Bet:</div>
-          <div id ="betAmount" class='large center float'>$20</div>
-          <div class='arrow up float'></div>
-          <div class='arrow down float'></div>
+          <div id ="bet-amount" class='large center float'>$10</div>
+          <div id = 'increase-bet' class='arrow up float'></div>
+          <div id = 'decrease-bet'class='arrow down float'></div>
         </div>
       </div>
 
@@ -43,14 +42,17 @@
     <button type="button" name="button" id="double" class="action-button">Double</button>
     <button type="button" name="button" id="stay" class="action-button">Stay</button>
     <button type="button" name="button" id="split" class="action-button">Split</button>
+    <button type="button" name="button" id="change-bet" class="action-button">Change Bet</button>
   </div>
 
     <button type="button" name="button" id="deal" class="deal-btn" >Deal</button>
 
    <script src="deck.js" charset="utf-8"></script>
    <script src="dom.js" charset="utf-8"></script>
-   <script src="main.js" charset="utf-8"></script>
+   <script src="player.js" charset="utf-8"></script>
+   <script src="dealer.js" charset="utf-8"></script>
    <script src="evaluators.js" charset="utf-8"></script>
+   <script src="main.js" charset="utf-8"></script>
 
   </body>
 </html>

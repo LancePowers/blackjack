@@ -3,50 +3,38 @@ document.getElementById("hit").addEventListener("click", function(){hit(player.h
 document.getElementById("stay").addEventListener("click", function(){dealerTurn();});
 document.getElementById("deal").addEventListener("click", function(){newRound();});
 document.getElementById("double").addEventListener("click", function(){doubleDown(player.hand);});
+document.getElementById("split").addEventListener("click", function(){split(player);});
+document.getElementById('change-bet').addEventListener('click', function(){
+  player.defaultBet = prompt("What would you like to change your bet to?");});
 
-function displayResults(text){
- var resultBox = document.getElementById('results');
- resultBox.setAttribute ("class", 'result-box');
- resultBox.setAttribute('id','result');
- resultBox.innerHTML = text;
- document.body.appendChild(resultBox);
+
+
+function updateHand(actor,cardSlot,deal){
+  var count = 1;
+  var currentDiv = document.getElementById(cardSlot);
+  if(currentDiv.children.length > 0) { wipe(cardSlot); }
+  if(deal === undefined){count = actor.hand.cards.length;}
+    for (i = 0; i < count; i++) {
+      showCard(actor,cardSlot,currentDiv);
+    }
 }
 
-
-
-function addElement (image,cardSlot){
-  // create a new div element
-  // and give it some content
+function showCard(actor, cardSlot, currentDiv){
   var newDiv = document.createElement("h1");
   newDiv.setAttribute("class",cardSlot);
-  //console.log(newDiv);
-  var newContent = image;
-  //console.log(newContent);
-  newDiv.innerHTML = image; //add the text node to the newly created div.
-
-  // add the newly created element and its content into the DOM
-  var currentDiv = document.getElementById(cardSlot);
-  //console.log(currentDiv);
+  newDiv.innerHTML = actor.hand.cards[i].image;
   currentDiv.appendChild(newDiv);
 }
 
-
-function wipe(){
-  var dealerClear = document.getElementById("dealers-cards");
-  var playerClear = document.getElementById("players-cards");
-  while(dealerClear.firstChild){
-    dealerClear.removeChild(dealerClear.firstChild);
-  }
-  while(playerClear.firstChild){
-    playerClear.removeChild(playerClear.firstChild);
+function wipe(id){
+  var clearCards = document.getElementById(id);
+  while(clearCards.firstChild){
+    clearCards.removeChild(clearCards.firstChild);
   }
 }
 
 function updateChips(){
   document.getElementById("chips").innerHTML = player.stack;
-  document.getElementById("betAmount").innerHTML = player.hand.bet;
+  document.getElementById("bet-amount").innerHTML = player.hand.bet;
 }
-function deactivate(id){
-  var targetBtn = document.getElementById(id);
-  targetBtn.setAttribute("class",deactivated);
-}
+
