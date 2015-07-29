@@ -17,10 +17,11 @@ function newRound(){
 
 //in: nothing. process: hits dealer hand untill soft 17 or bust. out: nothing.
 function dealerTurn(){
-  updateHand(dealer,"dealers-cards");
+  updateHand(dealer.hand,"dealers-cards");
   while (cardValue(dealer.hand)<17){
     dealer.hand.cards.push(selectCard()[0]);
-    updateHand(dealer,"dealers-cards");
+    updateHand(dealer.hand,"dealers-cards");
+    cardValue(dealer.hand);
   }
   winLose();
 }
@@ -35,13 +36,4 @@ function clearTable(win,multiplier){
   } else {
     player.stack -= player.hand.bet;
   }
-  wipe("dealers-cards");
-  wipe("players-cards");
 }
-
-
-
-
-//split
-
-

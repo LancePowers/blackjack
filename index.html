@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <title>BlackJack</title>
     <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   </head>
   <body>
     <div id='results'></div>
@@ -16,9 +17,9 @@
         <div id = "dealers-cards"></div>
       </div>
 
-  	  <div class="player area center">
+  	  <div id='player-area' class="player area center">
         <h2 id="playerName"> Player</h2>
-  			<div class="card" id="players-cards"></div>
+  			<div class="hand"></div>
   	    <div class='clear'></div>
       </div>
 
@@ -46,13 +47,12 @@
   </div>
 
     <button type="button" name="button" id="deal" class="deal-btn" >Deal</button>
-
-   <script src="deck.js" charset="utf-8"></script>
-   <script src="dom.js" charset="utf-8"></script>
-   <script src="player.js" charset="utf-8"></script>
-   <script src="dealer.js" charset="utf-8"></script>
-   <script src="evaluators.js" charset="utf-8"></script>
-   <script src="main.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+     <script src="deck.js" charset="utf-8"></script>
+     <script src="dom.js" charset="utf-8"></script>
+     <script src="actor.js" charset="utf-8"></script>
+     <script src="evaluators.js" charset="utf-8"></script>
+     <script src="main.js" charset="utf-8"></script>
 
   </body>
 </html>

@@ -5,7 +5,7 @@ function checkBlackjack(){
     clearTable(true,1.5);
   }
   if((dealer.hand.cards[0].value + dealer.hand.cards[1].value) === 21){
-    updateHand(dealer,"dealers-cards");
+    updateHand(dealer.hand,"dealers-cards");
     alert("Dealer Blackjack!");
    clearTable(false,1);
   }
@@ -67,16 +67,16 @@ function aceConvert (hand) {
 //in: nothing. process: compares hands to determine win or lose, calls clear tabel and update chips. out: nothing.
 function winLose(){
   if(cardValue(dealer.hand)==="Bust"){
-    alert("Dealer Busts");
+    console.log("Dealer Busts");
     clearTable(true,1);
   }  else if(cardValue(dealer.hand)>cardValue(player.hand)){
-    alert("you lose");
+    console.log("you lose");
     clearTable(false,1);
   } else if (cardValue(dealer.hand)===cardValue(player.hand)){
-    alert("push");
+    console.log("push");
     clearTable(true,0);
   } else {
-    alert("you win!");
+    console.log("you win!");
     clearTable(true,1);
   }
   updateChips();
