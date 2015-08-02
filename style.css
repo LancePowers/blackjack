@@ -1,11 +1,9 @@
-body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 12px;
-}h2{
+h2{
 	color: white;
 }
 img{
 	width:5em;
+	margin: .5%;
 }
 .table{
   background: #006600;

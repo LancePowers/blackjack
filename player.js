@@ -5,33 +5,34 @@ Player = function(){
   this.handValues = [];
   this.currentBet = 10;
   this.stack = 100;
-  this.spot = $("<div></div>").attr('id',this.name);
+  this.spot = $("<div class = 'margin-left'></div>").attr('id',this.name);
 }
 
 
 //I: P: O:
 Player.prototype.cardValue = function(){
-  var handValue = 0;
-  for (var i = 0; i < this.hands[0].cards.length; i++) {
-    handValue += this.hands[0].cards[i].value;
+  var handValue = this.hands[0].handValue();
+  if(handValue > 21){
+  if(this.hands[0].softCheck()[0] === 'soft'){
+    this.hands[0] = aceConvert(hand);
+    this.cadrValue();
+  } else {
+    blackJack.alertResults('playerBust')}
+    this.pay(false);
+    blackJack.nextRound();
   }
-  while(this.hands[0].softCheck()[0] === 'soft' && handValue < 17){
-    this.hands[0].aceConvert();
-  }
-  if(handValue > 21) {
-    handValue = 'BUST';
-  }
-  return  handValue;
+  return handValue;
 }
 
+
 //I: P: O:
-Player.prototype.pay = function(win,multiplier){
-  var winnings = this.handValue[0].bet *= multiplier;
+Player.prototype.pay = function(win){
   if(win === true){
-    player.stack += winnings;
+    this.stack += this.hands[0].bet;
   } else {
-    player.stack -= this.handValue[0].bet;
+    this.stack -= this.hands[0].bet;
   }
+  this.hands[0].bet = 0;
 }
 
 //I: P: O:
@@ -40,6 +41,7 @@ this.hands[0].cards.push(blackJack.selectCard()[0]);
 this.updateCards();
 if(this.cardValue()==="BUST"){
   blackJack.alertResults("playerBust");
+  blackJack.nextRound();
 }
 }
 

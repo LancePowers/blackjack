@@ -1,8 +1,4 @@
-//var playerCount = prompt('How many players do we have?')
 var blackJack = new Game(1);
-
-
-
 //I: Count  P: Creates new game object with deck and players O: -
 function Game(count){
   this.players= [];
@@ -13,7 +9,7 @@ function Game(count){
   this.activePlayers = [];
   this.deck = createDeck();
   this.dealerHand;
-
+  this.dealerFinalValue;
 }
 
 //I: -  P: Chooses a card from the deck at random O: card
@@ -33,57 +29,105 @@ Game.prototype.shuffle = function(){
 
 //I: - P: Adds players to active player array and deals them cards. Deals 1 card for the dealer O: -
 Game.prototype.deal = function(){
+  this.clearHands();
   this.shuffle();
+  this.activatePlayers();
+  this.dealerHand = new Hand('single');
+  this.dealPlayers();
+  this.dealDealer();
+}
+
+Game.prototype.clearHands = function(){
+  this.activePlayers.splice(0);
+}
+
+Game.prototype.dealDealer = function () {
+  $('#dealers-cards').html("");
+  $('#dealers-cards').append(this.dealerHand.cards[0].image);
+  this.dealerHand.cards.push( this.selectCard()[0] );
+  if (this.dealerHand.checkBlackjack() === true){
+    this.alertResults('dealerBJ');
+    while (this.activePlayers.length){
+        this.activePlayers[0].pay(false);
+        this.nextRound();
+    };
+  };
+}
+
+Game.prototype.dealPlayers = function(){
+  for (var i = 0; i < this.activePlayers.length; i++) {
+    this.activePlayers[i].hands[0] = new Hand("",this.activePlayers[i].currentBet);
+    this.activePlayers[i].updateCards();
+    var bJTest = this.activePlayers[i].hands[0].checkBlackjack();
+    if(bJTest === true){
+      this.activePlayers[i].hands[0].bet *= 1.5;
+      this.activePlayers[i].hands.splice(0,1);
+      this.activePlayers[i].pay(true);
+      this.alertResults('playerBJ');
+    }
+  }
+}
+Game.prototype.activatePlayers = function(){
   for (var i = 0; i < this.players.length; i++) {
     var slicedPlayer = this.players.slice(i,1);
     this.activePlayers.push(slicedPlayer[0]);
   }
-  for (var i = 0; i < this.activePlayers.length; i++) {
-    this.activePlayers[i].hands[0] = new Hand("",this.activePlayers[i].currentBet);
-    this.activePlayers[i].updateCards();
-  }
-  this.dealerHand = new Hand('single');
-    $('#dealers-cards').append(this.dealerHand.cards[0].image);
 }
-
-
 
 //I: - P: adds a card to the dealers hand while it's less than 17  O: -
 Game.prototype.dealerTurn = function(){
-  var cardCount = 1
-  while (this.dealerValue(this.dealerHand)<17){
-    var tempCard = selectCard();
+  $('#dealers-cards').append(this.dealerHand.cards[1].image);
+  var cardCount = 2
+  while (this.dealerValue()<17){
+    var tempCard = this.selectCard();
     this.dealerHand.cards.push( tempCard[0] );
     $('#dealers-cards').append(this.dealerHand.cards[cardCount].image);
     cardCount++;
   }
+  this.dealerFinalValue = this.dealerValue();
+  this.winLose();
 }
 
-Game.prototype.checkBJ = function(){
-
-}
-
-Game.prototype.dealerValue = function(hand,handValue){
-  if(handValue > 21){
-  if(softCheck(hand)[0] === 'soft'){
-    hand = aceConvert(hand);
-    cardValue(hand);
-  } else {handValue = 'BUST';}
+Game.prototype.dealerValue = function(){
+  var handValue = this.dealerHand.handValue();
+  while(this.dealerHand.softCheck()[0] === 'soft' && handValue < 17){
+    this.delearHand.aceConvert();
   }
-  return handValue;
+  if(handValue > 21) {
+    blackJack.alertResults('dealerBust');
+    this.dealerFinalValue = 0;
+  }
+  return  handValue;
+}
+
+//i - p: transfer hand to player's hand value array. removes player as active. starts dealer turn if no more active players. O -
+//May need to refactor this.
+Game.prototype.nextRound = function(){
+  var player = this.activePlayers[0];
+  var hand = player.hands[0];
+  player.handValues.push(player.hands.splice(0,1));
+  if(player.hands.length === 0){
+    this.activePlayers.splice(0,1);
+  }
+  if(this.activePlayers.length === 0){
+    this.dealerTurn();
+  }
 }
 
 Game.prototype.winLose = function(){
-  if(dealer.cardValue()==="Bust"){
-    console.log("Dealer Busts");
-  }  else if(dealer.cardValue()>this.cardValue){ ///<<<------ this won't work. It needs to be local to the hand for splitting.
-  /// W if hands was an array with an active hand. split creates another hand in reserve
-  ///(index 0 starts first. while loop for while the player still has a hand left)
-    console.log("you lose");
-  } else if (dealer.cardValue()===this.cardValue){
-    console.log("push");
-  } else {
-    console.log("you win!");
+  for (var i = 0; i < this.activePlayers.length; i++) {
+    if(this.activePlayers.hands !== undefined){
+    for(var i = 0; i < this.activePlayers.hands.length; i++){
+    if (this.activePlayers[0].handValues[0] > dealerFinalValue){
+      this.activePlayers[0].pay(true);
+    } else {
+    this.activePlayers[0].pay(false);
+    }
+   this.nextRound();
+    }
+   }
   }
-  updateChips();
 }
+
+//determine who won
+//add or subtract chips.

@@ -38,7 +38,13 @@ Hand.prototype.aceConvert = function() {
 Hand.prototype.split = function () {
 
 };
-
+Hand.prototype.handValue = function(){
+  var handValue = 0;
+  for (var i = 0; i < this.cards.length; i++) {
+    handValue += this.cards[i].value;
+  }
+  return handValue;
+}
 // both
 // game has players
 // players have hands
