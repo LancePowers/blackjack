@@ -1,124 +1,17 @@
 body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 12px;
+}h2{
+	color: white;
 }
-button{
-  font-size: 2em;
-  height: 4em;
-  box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.75);
-  border-radius: 25%;
-}
-h1{
-  font-size: 7em;
-  float: left;
-  margin: 2px;
-  background: white;
-  font-weight: lighter;
-}
-h2{
-  margin-bottom: 0;
-}
-.result-box{
-  position: absolute;
-  top: 25;
-  left: 25;
-  font-size: 10em;
+img{
+	width:5em;
 }
 .table{
-  margin: 25px;
-  display:block;
   background: #006600;
-  min-height: 500px;
-  border-bottom-right-radius: 50%;
-  border-bottom-left-radius: 50%;
-  border: 15px solid black;
+  min-height: 600px;
 }
-.center{
-    margin:auto;
-}
-.area{
-  background: rgba(256,256,256,0.1);
-  min-height: 100px;
-}
-.dealer{
-  width: 40%;
-
-}
-.player{
-  margin-top: 50px;
-  width: 60%;
-}
-.controls{
-  position: absolute;
-  right: 50px;
-  bottom: 50px;
-}
-.action-button{
-  width: 100px;
-  margin: 10px;
-}
-.deal-btn{
-  width: 100px;
-  position: absolute;
-  left: 50px;
-  bottom: 50px;
-}
-.betting{
-  width: 60%;
-
-}
-.float{
-  float:left;
-  margin: 10px;
-  width: 40%;
-}
-.large{
-  font-size: 3em;
-  margin-top: 5%;
-  margin-left: 20%
-}
-.arrow {
-  margin-top: 5%;
-  width: 0;
-  height: 0;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.3);
-}
-.up{
-  margin-left: 20%;
-   border-bottom: 20px solid black;
-}
-.down{
-   border-top: 20px solid black;
-}
-.num-display{
- font-size: 2em;
- color: rgba(256,256,256,0.3);
- float: left;
-}
-.no-shadow{
-  box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.75);
-}
-.text-margin{
-  margin: 10px 5px 0 0;
-}
-.clear{
-  clear: both;
-}
-.result{
-  font-size: 6em;
-  position: absolute;
-  top:10px;
-  left:10px;
-}
-.players-cards{
-  color: green;
-  float: left;
-  position: relative;
-  right: -20px;
-  line-height: .9;
-}
-.dealers-cards{
-  color:red;
+.margin-left{
+	margin-left: 3%;
+	color: white !important;
 }

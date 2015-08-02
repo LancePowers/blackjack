@@ -19,8 +19,8 @@ var deckValue= [
 ];
 //i: nothing p: combines names o: name - suit string
 function deckNames(){
-  var suit = [" of Clubs"," of Diamonds"," of Hearts"," of Spades"];
-  var face = ["Ace","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King"];
+  var suit = ["_of_Clubs.svg","_of_Diamonds.svg","_of_Hearts.svg","_of_Spades.svg"];
+  var face = ["ace","2","3","4","5","6","7","8","9","10","jack","queen","king"];
   face = face.reverse();
   var size = 52;
   var namedDeck = [];
@@ -39,7 +39,7 @@ function createDeck(){
   for (var i = 0; i < 52; i++) {
     var name = deckNames()[i+1];
     var value = deckValue[i];
-    var image = deckImage[i];
+    var image = $('<img/>').attr('src', 'img/'+name);
     output[i] = new Card(name,value,image);
   }
   return output;
@@ -52,12 +52,3 @@ function Card(name,value,image){
   this.value = value;
   this.image = image;
 }
-
-//function to select one card at random and remove it from the deck.
-function selectCard(){
-  var cardPos = Math.floor(Math.random() * dealer.deck.length);
-  var card = dealer.deck.splice(cardPos, 1);
-  return card;
-}
-
-

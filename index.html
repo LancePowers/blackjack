@@ -9,50 +9,46 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   </head>
   <body>
-    <div id='results'></div>
-    <div class='table'>
+    <div class="container-fluid">
+      <div class="row">
+      <div class='betting center col-sm-3'>
 
-      <div class="dealer area center">
-        <h2> Dealer</h2>
-        <div id = "dealers-cards"></div>
+          <div class=""> Chips:</div>
+          <div id="chips" class=''>$100</div>
+          <div class=''> Bet:</div>
+          <div id ="bet-amount" class=''>$10</div>
+
       </div>
-
-  	  <div id='player-area' class="player area center">
-        <h2 id="playerName"> Player</h2>
-  			<div class="hand"></div>
-  	    <div class='clear'></div>
-      </div>
-
-
-      <div class='betting center'>
-        <div class='float area'>
-          <div class="num-display text-margin"> Chips:</div>
-          <div id="chips" class='large center float'>$100</div>
+        <div class='col-sm-9'>
+        <div id='results' class="deal alert alert-dismissable fade in">
         </div>
-        <div class='float area'>
-          <div class='num-display text-margin'> Bet:</div>
-          <div id ="bet-amount" class='large center float'>$10</div>
-          <div id = 'increase-bet' class='arrow up float'></div>
-          <div id = 'decrease-bet'class='arrow down float'></div>
+        <div class='table'>
+          <div class="row margin-left">
+            <h2 class="margin-left">Dealer</h2>
+            <div id = "dealers-cards" class="margin-left"></div>
+          </div>
+      	  <div id='player-area' class="row margin-left">
+            <h2 id="playerName" class="margin-left">Player</h2>
+          </div>
+          </div>
         </div>
       </div>
-
+    <div class = "controls center">
+      <button type="button" name="button" id="hit" class="btn btn-lg btn-success" >Hit</button>
+      <button type="button" name="button" id="double" class="btn btn-lg">Double</button>
+      <button type="button" name="button" id="stay" class="btn btn-lg">Stay</button>
+      <button type="button" name="button" id="split" class="btn btn-lg">Split</button>
+      <button type="button" name="button" id="change-bet" class="btn btn-lg">Change Bet</button>
+    </div>
   </div>
-  <div class = "controls center">
-    <button type="button" name="button" id="hit" class="action-button" >Hit</button>
-    <button type="button" name="button" id="double" class="action-button">Double</button>
-    <button type="button" name="button" id="stay" class="action-button">Stay</button>
-    <button type="button" name="button" id="split" class="action-button">Split</button>
-    <button type="button" name="button" id="change-bet" class="action-button">Change Bet</button>
-  </div>
-
-    <button type="button" name="button" id="deal" class="deal-btn" >Deal</button>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
      <script src="deck.js" charset="utf-8"></script>
+     <script src="player.js" charset="utf-8"></script>
+     <script src="game.js" charset="utf-8"></script>
+     <script src="hand.js" charset="utf-8"></script>
      <script src="dom.js" charset="utf-8"></script>
-     <script src="actor.js" charset="utf-8"></script>
-     <script src="evaluators.js" charset="utf-8"></script>
-     <script src="main.js" charset="utf-8"></script>
+
 
   </body>
 </html>
