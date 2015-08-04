@@ -14,51 +14,48 @@ Player.prototype.cardValue = function(){
   var handValue = this.hands[0].handValue();
   if(handValue > 21){
   if(this.hands[0].softCheck()[0] === 'soft'){
-    this.hands[0] = aceConvert(hand);
-    this.cadrValue();
+    this.hands[0].aceConvert();
+    this.cardValue();
   } else {
     blackJack.alertResults('playerBust')}
-    this.pay(false);
+    this.pay(false,this.hands[0].bet);
+    this.hands.splice(0,1);
     blackJack.nextRound();
   }
   return handValue;
 }
 
-
 //I: P: O:
-Player.prototype.pay = function(win){
+Player.prototype.pay = function(win, bet){
   if(win === true){
-    this.stack += this.hands[0].bet;
+    this.stack += bet;
   } else {
-    this.stack -= this.hands[0].bet;
+    this.stack -= bet;
   }
-  this.hands[0].bet = 0;
 }
 
 //I: P: O:
 Player.prototype.hit = function(){
-this.hands[0].cards.push(blackJack.selectCard()[0]);
-this.updateCards();
-if(this.cardValue()==="BUST"){
-  blackJack.alertResults("playerBust");
-  blackJack.nextRound();
-}
+  this.hands[0].cards.push(blackJack.selectCard()[0]);
+  this.updateCards();
+  this.cardValue();
 }
 
 //I: P: O:
 Player.prototype.double = function(){
-this.hand.bet *= 2;
-player.hand.cards.push(selectCard()[0]);
-this.updateCards();
+  this.hand.bet *= 2;
+  player.hand.cards.push(selectCard()[0]);
+  this.updateCards();
 }
 
-//I: P: O:
+//I: P: O: -verified
 Player.prototype.stay = function(){
-  var value = this.handValue
-  if(this === blackJack.activePlayers[-1]){ //if this is the last player
-    blackJack.dealerTurn();
-  } else {
-    blackJack.activePlayers.splice(this);
+  this.handValues.push(this.hands.splice(0,1)); //push the hand to handValue for later
+  if(this.hands.length === 0){ //if it's the last hand for the player
+    blackJack.activePlayers.splice(0,1); // make the player inactive
+    if(blackJack.activePlayers.length === 0){ //if it's the last active player
+      blackJack.dealerTurn(); //start the dealers turn.
+    }
   }
 }
 

@@ -9,7 +9,7 @@ function Game(count){
   this.activePlayers = [];
   this.deck = createDeck();
   this.dealerHand;
-  this.dealerFinalValue;
+  this.dealerFinalValue = 0;
 }
 
 //I: -  P: Chooses a card from the deck at random O: card
@@ -29,17 +29,14 @@ Game.prototype.shuffle = function(){
 
 //I: - P: Adds players to active player array and deals them cards. Deals 1 card for the dealer O: -
 Game.prototype.deal = function(){
-  this.clearHands();
   this.shuffle();
   this.activatePlayers();
   this.dealerHand = new Hand('single');
   this.dealPlayers();
   this.dealDealer();
+  this.buttons(true);
 }
 
-Game.prototype.clearHands = function(){
-  this.activePlayers.splice(0);
-}
 
 Game.prototype.dealDealer = function () {
   $('#dealers-cards').html("");
@@ -76,26 +73,26 @@ Game.prototype.activatePlayers = function(){
 
 //I: - P: adds a card to the dealers hand while it's less than 17  O: -
 Game.prototype.dealerTurn = function(){
-  $('#dealers-cards').append(this.dealerHand.cards[1].image);
-  var cardCount = 2
-  while (this.dealerValue()<17){
-    var tempCard = this.selectCard();
-    this.dealerHand.cards.push( tempCard[0] );
-    $('#dealers-cards').append(this.dealerHand.cards[cardCount].image);
-    cardCount++;
+  $('#dealers-cards').append(this.dealerHand.cards[1].image); //show the dealers down card
+  var cardCount = 2 //update the position of the cards displayed
+  while (this.dealerValue()<17){ //get the value of the hand and continue untill it is 17 or greater
+    var tempCard = this.selectCard();//grab a card from the deck
+    this.dealerHand.cards.push( tempCard[0] ); //add the card to the dealers hand
+    $('#dealers-cards').append(this.dealerHand.cards[cardCount].image); //show the card on the table
+    cardCount++; //increase the count of cards shown
   }
-  this.dealerFinalValue = this.dealerValue();
-  this.winLose();
+  this.dealerFinalValue = this.dealerValue(); //set a variable to compare other hands against.
+  this.winLose(); //call the function to evaluate the hands
 }
 
 Game.prototype.dealerValue = function(){
   var handValue = this.dealerHand.handValue();
   while(this.dealerHand.softCheck()[0] === 'soft' && handValue < 17){
-    this.delearHand.aceConvert();
+    this.dealerHand.aceConvert();
   }
   if(handValue > 21) {
-    blackJack.alertResults('dealerBust');
     this.dealerFinalValue = 0;
+    blackJack.alertResults('dealerBust');
   }
   return  handValue;
 }
@@ -115,19 +112,15 @@ Game.prototype.nextRound = function(){
 }
 
 Game.prototype.winLose = function(){
-  for (var i = 0; i < this.activePlayers.length; i++) {
-    if(this.activePlayers.hands !== undefined){
-    for(var i = 0; i < this.activePlayers.hands.length; i++){
-    if (this.activePlayers[0].handValues[0] > dealerFinalValue){
-      this.activePlayers[0].pay(true);
-    } else {
-    this.activePlayers[0].pay(false);
-    }
-   this.nextRound();
-    }
-   }
+  var playerFinalValue = this.players[0].handValues[0].cardValue()
+  if(playerFinalValue > this.dealerFinalValue){
+    this.alertResults('win');
+  } else if (playerFinalValue < dealerFinalValue) {
+    this.alertResults('lose');
+  } else {
+    this.alertResults('push')
   }
+
 }
 
-//determine who won
-//add or subtract chips.
+//stop dealerTurn if player busts

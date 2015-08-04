@@ -5,7 +5,7 @@ $(document).on('ready', function(e){
 Game.prototype.buttons = function(toggle){
   if(toggle === true){
     $("#hit").on("click", function(event){ blackJack.activePlayers[0].hit();});
-    $("#stay").on("click", function(event){ blackJack.dealerTurn(); });
+    $("#stay").on("click", function(event){ blackJack.activePlayers[0].stay(); });
     $("#double").on("click", function(event){ doubleDown(player.hand); });
     $("#split").on("click", function(event){ player.hand = new Hand('split'); });
   } else {
@@ -19,6 +19,8 @@ Game.prototype.buttons = function(toggle){
 
 $('#change-bet').on('click', function(){this.player[0].defaultBet = prompt("What would you like to change your bet to?");});
 $(".deal").on("click", function(event){ blackJack.deal(); });
+
+
 Player.prototype.updateCards = function(){
   this.spot.html('');
   for (var i = 0; i < this.hands[0].cards.length; i++) {
@@ -66,7 +68,7 @@ Game.prototype.alertResults = function(results){
   $('#results').addClass(alertType);
   $('#results').text(alertText);
   blackJack.buttons();
-  $('#results').on('click', function(){blackJack.clearResults(alertType);blackJack.buttons(true);})
+  $('#results').on('click', function(){blackJack.clearResults(alertType);})
 }
 Game.prototype.clearResults = function(alertType){
   $('#results').removeClass(alertType);

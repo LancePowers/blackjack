@@ -35,9 +35,6 @@ Hand.prototype.aceConvert = function() {
   this.cards[aceAt].value = 1;
 }
 
-Hand.prototype.split = function () {
-
-};
 Hand.prototype.handValue = function(){
   var handValue = 0;
   for (var i = 0; i < this.cards.length; i++) {
