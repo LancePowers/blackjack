@@ -2,11 +2,16 @@ $(document).on('ready', function(e){
   //var playerCount = prompt('How many players do we have?')
   blackJack.alertResults();
 });
-Game.prototype.buttons = function(toggle){
+
+$('#change-bet').on('click', function(){this.player[0].defaultBet = prompt("What would you like to change your bet to?");});
+$(".deal").on("click", function(event){ blackJack.deal(); });
+
+//Turns player controls on or off
+Game.prototype.buttons = function(toggle){//WORKING
   if(toggle === true){
-    $("#hit").on("click", function(event){ blackJack.activePlayers[0].hit();});
-    $("#stay").on("click", function(event){ blackJack.activePlayers[0].stay(); });
-    $("#double").on("click", function(event){ doubleDown(player.hand); });
+    $("#hit").on("click", function(event){ blackJack.players[blackJack.activePlayer].hit();});
+    $("#stay").on("click", function(event){ blackJack.players[blackJack.activePlayer].stay(); });
+    $("#double").on("click", function(event){ blackJack.players[blackJack.activePlayer]; });
     $("#split").on("click", function(event){ player.hand = new Hand('split'); });
   } else {
     $("#hit").off();
@@ -15,11 +20,6 @@ Game.prototype.buttons = function(toggle){
     $("#split").off();
   }
 }
-
-
-$('#change-bet').on('click', function(){this.player[0].defaultBet = prompt("What would you like to change your bet to?");});
-$(".deal").on("click", function(event){ blackJack.deal(); });
-
 
 Player.prototype.updateCards = function(){
   this.spot.html('');

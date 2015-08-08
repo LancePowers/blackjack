@@ -2,28 +2,13 @@
 Player = function(){
   this.name = 'Lance'; //prompt('What\'s your name?');
   this.hands = [];
-  this.handValues = [];
   this.currentBet = 10;
   this.stack = 100;
   this.spot = $("<div class = 'margin-left'></div>").attr('id',this.name);
 }
 
 
-//I: P: O:
-Player.prototype.cardValue = function(){
-  var handValue = this.hands[0].handValue();
-  if(handValue > 21){
-  if(this.hands[0].softCheck()[0] === 'soft'){
-    this.hands[0].aceConvert();
-    this.cardValue();
-  } else {
-    blackJack.alertResults('playerBust')}
-    this.pay(false,this.hands[0].bet);
-    this.hands.splice(0,1);
-    blackJack.nextRound();
-  }
-  return handValue;
-}
+
 
 //I: P: O:
 Player.prototype.pay = function(win, bet){
@@ -50,10 +35,10 @@ Player.prototype.double = function(){
 
 //I: P: O: -verified
 Player.prototype.stay = function(){
-  this.handValues.push(this.hands.splice(0,1)); //push the hand to handValue for later
+  blackJack.activeHands.push(this.hands.splice(0,1)); //push the hand to activeHands for later
   if(this.hands.length === 0){ //if it's the last hand for the player
-    blackJack.activePlayers.splice(0,1); // make the player inactive
-    if(blackJack.activePlayers.length === 0){ //if it's the last active player
+    blackJack.activePlayer++; // make the player inactive
+    if(blackJack.activePlayer === blackJack.players.length){ //if it's the last active player
       blackJack.dealerTurn(); //start the dealers turn.
     }
   }
@@ -68,3 +53,8 @@ Player.prototype.split = function(){
   this.hands[0].cards.push(card1);
   this.hands[1].cards.push(card2);
 }
+
+
+
+// 2 cards dealt to players 1 card to dealer
+// player can hit stay double or split
